@@ -5,11 +5,11 @@ Mostlystatic::Application.routes.draw do
   #get "/static_pages/help"
   #get 'static_pages/about'
 
-  get 'home', to: 'static_pages#home', as: :home
-  get 'help', to: 'static_pages#help', as: :help
-  get 'about', to: 'static_pages#about', as: :about
-  get 'contact', to: 'static_pages#contact', as: :contact
-  
+  get 'home',     to: 'static_pages#home',    as: :home
+  get 'help',     to: 'static_pages#help',    as: :help
+  get 'about',    to: 'static_pages#about',   as: :about
+  get 'contact',  to: 'static_pages#contact', as: :contact
+
   #match 'about' to: '/static_pages/about', as: :about, via: :all
 
   # The priority is based upon order of creation: first created -> highest priority.
