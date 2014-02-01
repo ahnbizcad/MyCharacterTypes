@@ -49,6 +49,9 @@ Spork.prefork do
     #     --seed 1234
     config.order = "random"
     config.include Capybara::DSL
+
+    # Enable custom _path and _url route helpers
+    config.include Rails.application.routes.url_helpers
   end
   
 end

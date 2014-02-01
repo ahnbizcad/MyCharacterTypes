@@ -16,8 +16,6 @@ Mostlystatic::Application.routes.draw do
   get '/signup',   to: 'users#new',             as: :signup
 
 
-  #match 'about' to: '/static_pages/about', as: :about, via: :all
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
