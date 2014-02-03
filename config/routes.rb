@@ -1,6 +1,6 @@
 Mostlystatic::Application.routes.draw do
   
-  root 'static_pages#home'
+  root to: 'static_pages#home'
 
   #get "/static_pages/home"
   #get "/static_pages/help"
@@ -13,7 +13,14 @@ Mostlystatic::Application.routes.draw do
   get '/contact',  to: 'static_pages#contact',  as: :contact
 
   # users
-  get '/signup',   to: 'users#new',             as: :signup
+  resources :users, only: [ :new, :create, :edit ]
+  get '/signup',        to: 'users#new',           as: :signup
+  get '/profile',       to: 'users#show',          as: :profile
+  get '/edit-profile',  to: 'users#show',          as: :edit_profile
+  #post ''
+  #put ''
+  # Don't allow users to delete account
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -77,4 +77,7 @@ Mostlystatic::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  # Protect against mass assignment exploit
+  config.active_record.whitelist_attributes = true
 end

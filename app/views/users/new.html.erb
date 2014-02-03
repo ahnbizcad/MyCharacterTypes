@@ -1,5 +1,22 @@
 <% provide(:title, 'Sign Up') %>
 <h1>Sign Up</h1>
+
 <%= link_to "signup_path", signup_path %>
-<%#= form_for %>
-<%#end%>
+
+<%#= @user.email %>
+
+<div class="form"> 
+<%= form_for @user do |u| %>
+	<p>
+		<%= u.label :name %><br>
+		<%= u.text_field :name %>
+	</p>
+	<p>
+		<%= u.label :email %><br>
+		<%= u.text_area :email %>
+	</p>
+	<p>
+		<%= u.submit %>
+	</p>
+<%end%>
+</div>

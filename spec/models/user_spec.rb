@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "User -" do
+describe "USERS -" do
 
 	describe "Table -" do
 		before { @user = User.new(name: "Example User", email: "user@example.com") }
@@ -52,13 +52,20 @@ describe "User -" do
 	  	end
 	  end
 
-	  
-	end
+	  describe "when email address is already taken" do
+    	before { user_with_same_email = @user.dup
+    	 	user_with_same_email.email.downcase!
+    	  user_with_same_email.save }
+	  	it { should_not be_valid }
+		end
 
+	end
+	
+	###
 
 	let(:base_title) { "Ruby on Rails Tutorial Sample App" }
 
-  describe "Pages -" do
+  describe "PAGES -" do
   	before { visit signup_path }
   	subject { page }
 	  
