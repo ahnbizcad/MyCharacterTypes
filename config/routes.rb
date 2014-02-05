@@ -13,10 +13,10 @@ Mostlystatic::Application.routes.draw do
   get '/contact',  to: 'static_pages#contact',  as: :contact
 
   # users
-  resources :users, only: [ :new, :create, :edit ]
-  get '/signup',        to: 'users#new',           as: :signup
-  get '/profile',       to: 'users#show',          as: :profile
-  get '/edit-profile',  to: 'users#show',          as: :edit_profile
+  resources :users
+  #get '/signup',        to: 'users#new',           as: :signup
+  #get '/profile',       to: 'users#show',          as: :profile
+  #get '/edit-profile',  to: 'users#show',          as: :edit_profile
   #post ''
   #put ''
   # Don't allow users to delete account

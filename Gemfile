@@ -6,7 +6,7 @@ ruby '1.9.3'
 #ruby-gemset=railstutorial_rails_4_0
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
+gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
 # gem 'unicorn'
@@ -25,7 +25,7 @@ ruby '1.9.3'
 #gem 'turbolinks'
 #gem 'jbuilder', '~> 1.2'
 
-gem 'rails', '4.0.2'
+gem 'rails', '~>4.0.2'
 gem 'sass-rails', '4.0.1'
 gem 'uglifier', '2.1.1'
 gem 'coffee-rails', '4.0.1'

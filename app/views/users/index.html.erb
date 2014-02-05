@@ -1,0 +1,12 @@
+<% provide(:title, 'Admin User View') %>
+<h1>Admin User View</h1>
+
+<table>
+	<% @users.each do |u| %>
+		<tr>
+			<td><%= u.name %></td>
+			<td><%= u.email %></td>
+			<td><%= u.password %></td>
+		<tr>
+	<% end %>
+</table>

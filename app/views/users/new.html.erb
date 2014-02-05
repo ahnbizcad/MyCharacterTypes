@@ -1,9 +1,17 @@
 <% provide(:title, 'Sign Up') %>
 <h1>Sign Up</h1>
 
-<%= link_to "signup_path", signup_path %>
-
-<%#= @user.email %>
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited
+      this user from being saved:</h2>
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <div class="form"> 
 <%= form_for @user do |u| %>
@@ -13,9 +21,18 @@
 	</p>
 	<p>
 		<%= u.label :email %><br>
-		<%= u.text_area :email %>
+		<%= u.text_field :email %>
 	</p>
 	<p>
+		<%= u.label :password %><br>
+		<%= u.text_field :password %>
+	</p>
+	<p>
+		<%= u.label :confirm_password %><br>
+		<%= u.text_field :password_confirmation %>
+	</p>
+	<p>
+		<%# Find out how to edit text of the submit button to say something else like "Sign Up"%>
 		<%= u.submit %>
 	</p>
 <%end%>
