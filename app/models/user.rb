@@ -20,4 +20,5 @@ class User < ActiveRecord::Base
 	validates :password, presence: true,
 											 length: { minimum: 6 }
 
+  #use rescue to redirect away from exception error page when double clicking form rapidly
 end
