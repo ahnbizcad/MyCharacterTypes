@@ -5,24 +5,28 @@ class UsersController < ApplicationController
   end
 
   def show
+  	#change to find by username index
   	@user = User.find(params[:id])
   end
 
   def new
   	@user = User.new
+  	#disallow if logged, exception being admin
   end
 
   def create
   	@user = User.new(user_params)	 
 	  if @user.save
-	  	redirect_to @user
+	  	redirect_to @user #goes to show action - why?
 	  else
 	  	render 'new'
 	  end
+	  #disallow if logged, exception being admin
   end
 
   def edit
   	@user = User.find(params[:id])
+  	#! require proper user session or admin
   end
 
   def update
@@ -32,6 +36,7 @@ class UsersController < ApplicationController
   	else
   		render 'edit'
   	end
+  	#! require proper user session or admin
   end
 
   def destroy
@@ -39,6 +44,7 @@ class UsersController < ApplicationController
   	@user.destroy
 
   	redirect_to users_path
+  	#! require proper user session or admin
   end
 
   private

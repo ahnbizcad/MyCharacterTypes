@@ -1,6 +1,10 @@
 <%= provide(:title, 'Profile') %>
-<h1>Profile</h1>
+<h1><%= @user.name %></h1>
 <div>
-	<%= @user.name %><br>
+	<%= @user.name %>
+	<br>
+	<%# allow user to choose to either show or hide to other users%>
 	<%= @user.email %>
+	<br>
+	<%= link_to 'Edit profile', edit_user_path(@user) %>
 </div>

@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
 										#disallow symbols by using regex
 
 	# Validations for email attribute.
-	EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+	before_save { email.downcase! }
+	EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 	validates :email, presence: true, 
 										uniqueness: { case_sensitive: false },
 										format: { with: EMAIL_REGEX }

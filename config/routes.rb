@@ -13,10 +13,13 @@ Mostlystatic::Application.routes.draw do
   get '/contact',  to: 'static_pages#contact',  as: :contact
 
   # users
+  #! figure out how to disable redundant url paths
   resources :users
-  #get '/signup',        to: 'users#new',           as: :signup
-  #get '/profile',       to: 'users#show',          as: :profile
-  #get '/edit-profile',  to: 'users#show',          as: :edit_profile
+  #! restrict edit and destroy to your own profile - use sessionsto do this?
+  get '/signup',        to: 'users#new',           as: :signup
+  #! change :id to be :name
+  get "/profile/:id",       to: 'users#show',          as: :profile
+  #get '/edit-profile',  to: 'users#edit',          as: :edit_profile
   #post ''
   #put ''
   # Don't allow users to delete account

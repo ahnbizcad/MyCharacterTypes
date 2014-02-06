@@ -4,9 +4,16 @@
 <table>
 	<% @users.each do |u| %>
 		<tr>
+			<td><%= u.id %></td>
 			<td><%= u.name %></td>
 			<td><%= u.email %></td>
 			<td><%= u.password %></td>
+			<%# change to admin only %>
+			<td><%= link_to 'show', u %></td>
+			<td><%= link_to 'edit', edit_user_path(u) %></td>
+			<td><%= link_to 'destroy', user_path(u), 	method: :delete, 
+																								data: { confirm: 'Are you sure?' } %></td>
+			<%# change to admin only %>
 		<tr>
 	<% end %>
 </table>

@@ -3,13 +3,12 @@ require 'spec_helper'
 describe "USERS -" do
 
 	describe "Table, subject @user -" do
-
-		before { @user = User.new(name: "Example User", 
-															email: "user@example.com",
-															password: "foobar",
-															password_confirmation: "foobar") }
+		#before { @user = User.new(name: "Example User", 
+		#													email: "user@example.com",
+		#													password: "foobar",
+		#													password_confirmation: "foobar") }
+		let(:user) { FactoryGirl.create(:user) }		
 	  subject { @user }
-
 
 		describe "attributes should respond and be valid" do			
 			#attributes
@@ -37,18 +36,18 @@ describe "USERS -" do
 	  	end
 	  	describe "name that's already taken should be invalid, case insensitive" do
 	    	before { user_with_same_name = @user.dup
-    	  	user_with_same_name.save }
+    	  				 user_with_same_name.save }
 	  		it { should_not be_valid }
 			end  	
 
 		end		
 		describe "Email" do
-	  	#VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-			describe "email that's blank should be invalid" do
+	  	#VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
+			describe "that's blank should be invalid" do
 		    before { @user.email = " " }
 	   	  it { should_not be_valid }
 	  	end
-	  	describe " in a valid format should be valid" do
+	  	describe "in a valid format should be valid" do
 		  	addresses = %w[user@foo.COM.
 	  	 								A_US-ER@f.b.org.
 	  	  							frst.lst@foo.jp.
@@ -58,7 +57,7 @@ describe "USERS -" do
 	  			it { should be_valid }
 	  		end
 	  	end
-	  	describe "e in invalid format should be invalid" do
+	  	describe "in invalid format should be invalid" do
 		  	addresses = %w[user@foo,com.
 	  									user_at_foo.org.
 	  	 								example.user@foo.
@@ -69,14 +68,26 @@ describe "USERS -" do
 	  			it { should_not be_valid }
 	  		end
 	  	end
-	  	describe "email that's already taken (case insensitive) should be invalid" do
-	    	before { user_with_same_email = @user.dup
-    	 		user_with_same_email.email.downcase!
-    	  	user_with_same_email.save }
-	  		it { should_not be_valid }
+	  	#! syntax problem here
+	  	describe "email address with mixed case" do
+   			let(:mixed_case_email) { "Foo@ExAMPle.CoM" }
+
+   			it "should be saved as all lower-case" do
+    			@user.email = mixed_case_email
+     			@user.save
+     			expect(@user.reload.email).to eq mixed_case_email.downcase
+   		  end
+  		end
+			describe "that's already taken" do
+				before { user_with_same_email = @user.dup 
+								 user_with_same_email.email
+	  						 user_with_same_email.save }
+				describe "should be invalid" do	 					
+					it { should_not be_valid }
+				end		
 			end
 
-		end
+		end		
 		describe "Password" do 
 
 			describe "password that's blank should be invalid" do
@@ -85,8 +96,8 @@ describe "USERS -" do
 				it { should_not be_valid }
 			end
 			describe "password that's shorter than 6 characters should be invalid" do
-				before { @user.password = "qwert"
-							 	@user.password_confirmation = "qwert" }
+				before { @user.password = "12345"
+							 	@user.password_confirmation = "12345" }
 				it { should_not be_valid }
 			end
 			describe "password that doesn't match the password_confirmation should be invalid" do
@@ -113,19 +124,31 @@ describe "USERS -" do
 
 	end
 
-		###
-
-	let(:base_title) { "Ruby on Rails Tutorial Sample App" }
 
   describe "PAGES, subject page -" do
-  	before { visit signup_path }
+  	let(:base_title) { "Ruby on Rails Tutorial Sample App" }
   	subject { page }
 	  
-	  describe "Signup page" do
+	  describe "users index page" do
+	  	before { visit users_path }
+	    it { should have_selector('h1', text: 'Users') }
+	    it { should have_title(full_title('Users')) }
+	  end
+	  describe "user show page" do
+	  	before { visit user_path(@user) }
+	    it { should have_selector('h1', text: 'Profile') }
+	    it { should have_title(full_title('Profile')) }
+	  end
+	  describe "user new page" do
+  		before { visit new_user_path }
 	    it { should have_selector('h1', text: 'Sign Up') }
 	    it { should have_title(full_title('Sign Up')) }
-	    #response.status.should be(200)
 	  end
+	  describe "user edit page" do
+	  	before { visit edit_user_path }
+	    it { should have_selector('h1', text: 'Edit Profile') }
+	    it { should have_title(full_title('Edit Profile')) }
+	  end	  
 	end
 	
 end

@@ -9,10 +9,20 @@
 <body>
 
 <%= render '/layouts/header' %>
+
+<aside class="sidebar">
+</aside>
+
 <div class="container">
 	<%= yield %>
 	<%= render '/layouts/footer' %>
+	<%#= display div tag in debug if development %>
+	<%= debug(params) if Rails.env.development? %>
+	<%#= display div end tag %>
 </div>
+
+<aside class="sidebar">
+</aside>
 
 </body>
 </html>
