@@ -23,4 +23,4 @@ def secure_token
   end
 end
 
-Mostlystatic::Application.config.secret_key_base = secure_token
+MyCharacterTypes::Application.config.secret_key_base = secure_token

@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Mostlystatic::Application.load_tasks
+MyCharacterTypes::Application.load_tasks
