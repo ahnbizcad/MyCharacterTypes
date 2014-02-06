@@ -8,6 +8,9 @@ ruby '1.9.3'
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.1.2'
 
+#tools
+gem 'rename', '1.0.2'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 
@@ -35,6 +38,8 @@ gem 'jbuilder', '1.0.2'
 
 #database
 gem 'pg', '0.17.1'
+
+
 
 group :development, :test do
   ##gem 'sqlite3', '1.3.8'
