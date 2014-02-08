@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
 	require 'bcrypt'
 
 	# Validations for name attribute.
-	validates :name, 	presence: true, 
+	validates :username, 	presence: true, 
 										uniqueness: { case_sensitive: false },
 										length: { minimum: 4 },
 										length: { maximum: 25 }

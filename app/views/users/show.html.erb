@@ -1,10 +1,11 @@
 <%= provide(:title, 'Profile') %>
+
 <h1>
 	<%= gravatar_for @user %>
-	<%= @user.name %>
+	<%= @user.username %>
 </h1>
 <div>
-	<%= @user.name %>
+	<%= @user.username %>
 	<br>
 	<%# allow user to choose to either show or hide to other users%>
 	<%= @user.email %>

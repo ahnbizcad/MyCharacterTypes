@@ -1,0 +1,25 @@
+<%#= form_for @post, as: :post, url: posts_path, html: { class: "new_post", id: "new_post" } do |f| %>
+<div class="form"> 
+<%= form_for @user do |u| %>
+	<p>
+		<%= u.label :username %>
+		<%= u.text_field :username %>
+	</p>
+	<p>
+		<%= u.label :email %>
+		<%= u.text_field :email %>
+	</p>
+	<p>
+		<%= u.label :password %>
+		<%= u.password_field :password %>
+	</p>
+	<p>
+		<%= u.label :confirm %>
+		<%= u.password_field :password_confirmation %>
+	</p>
+	<p>
+		<%# Find out how to edit text of the submit button to say something else like "Sign Up"%>
+		<%= u.submit %>
+	</p>
+<%end%>
+</div>

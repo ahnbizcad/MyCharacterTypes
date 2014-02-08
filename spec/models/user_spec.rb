@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "USERS Table user -" do
-	#before { user = User.new(name: "Example User", 
+	#before { user = User.new(username: "Example User", 
 	#													email: "user@example.com",
 	#													password: "foobar",
 	#													password_confirmation: "foobar") }
@@ -10,7 +10,7 @@ describe "USERS Table user -" do
 
 	describe "attributes should respond and be valid" do			
 		#attributes
-		it { should respond_to(:name) }
+		it { should respond_to(:username) }
 	  it { should respond_to(:email) }
 	  it { should respond_to(:password_digest) }
 	  it { should respond_to(:password) }
@@ -22,23 +22,23 @@ describe "USERS Table user -" do
 	  it { should be_valid }
 
   end
-  describe "Name" do
+  describe "Username" do
 
   	describe "that's blank should" do
-	  	before { user.name = " " }
+	  	before { user.username = " " }
 	  	describe "should be invalid" do
     		it { should_not be_valid }
     	end
   	end
   	describe "with more than 25 characters" do
-	    before { user.name = "a" * (25+1) }
+	    before { user.username = "a" * (25+1) }
 	    describe "should be invalid" do
     		it { should_not be_valid }
     	end
   	end
   	describe "that's already taken, case insensitive" do
-    	before { user_with_same_name = user.dup
-  	  				 user_with_same_name.save }
+    	before { user_with_same_username = user.dup
+  	  				 user_with_same_username.save }
   	  describe "should be invalid" do
   			it { should_not be_valid }
   		end
