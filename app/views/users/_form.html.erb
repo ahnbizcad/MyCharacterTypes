@@ -2,19 +2,19 @@
 <div class="form"> 
 <%= form_for @user do |u| %>
 	<p>
-		<%= u.label :username %>
+		<%= u.label :username %>:
 		<%= u.text_field :username %>
 	</p>
 	<p>
-		<%= u.label :email %>
+		<%= u.label :email %>:
 		<%= u.text_field :email %>
 	</p>
 	<p>
-		<%= u.label :password %>
+		<%= u.label :password %>:
 		<%= u.password_field :password %>
 	</p>
 	<p>
-		<%= u.label :confirm %>
+		<%= u.label :password_confirm %>:
 		<%= u.password_field :password_confirmation %>
 	</p>
 	<p>

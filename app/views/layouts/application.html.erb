@@ -14,9 +14,9 @@
 </aside>
 
 <div class="container">
-	<% flash.each do |k,v| %>
-	<div class="alert alert-<%= k %>"><%= v %></div>
-	<% end %>
+	<%# flash.each do |key,value| %>
+	<%#= content_tag { :div, value, class: "alert alert-#{key}" } %>
+	<%# end %>
 	<%= yield %>
 	<%= render '/layouts/footer' %>
 	<%#= display div tag in debug if development %>

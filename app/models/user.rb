@@ -4,8 +4,7 @@ class User < ActiveRecord::Base
 	# Validations for name attribute.
 	validates :username, 	presence: true, 
 										uniqueness: { case_sensitive: false },
-										length: { minimum: 4 },
-										length: { maximum: 25 }
+										length: { within: 4..20 }
 										#disallow symbols by using regex
 
 	# Validations for email attribute.

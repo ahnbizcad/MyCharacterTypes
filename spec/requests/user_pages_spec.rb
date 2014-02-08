@@ -30,7 +30,7 @@ describe "USERS Pages page -" do
 		end
     describe "with valid information" do
 			before do 
-				fill_in "Name",					with: "Example User"
+				fill_in "Username",			with: "Example User"
 				fill_in "Email",				with: "UsEr@GmAiL.cOm"
 				fill_in "Password",			with: "foobar"
 				fill_in "Confirm",			with: "foobar"

@@ -8,7 +8,7 @@ describe "USERS Table user -" do
 	let(:user) { FactoryGirl.create(:user) }		
   subject { user }
 
-	describe "attributes should respond and be valid" do			
+	describe "Attributes should respond and be valid" do			
 		#attributes
 		it { should respond_to(:username) }
 	  it { should respond_to(:email) }
@@ -17,7 +17,7 @@ describe "USERS Table user -" do
 	  it { should respond_to(:password_confirmation) }
 
 	  #methods
-	  it { should response_to(:authenticate) }
+	  it { should respond_to(:authenticate) }
 
 	  it { should be_valid }
 
@@ -73,7 +73,7 @@ describe "USERS Table user -" do
   		end
   	end
   	#! syntax problem here
-  	describe "email address with mixed case" do
+  	describe "that has mixed case" do
  			let(:mixed_case_email) { "Foo@ExAMPle.CoM" }
 
  			it "should be saved as all lower-case" do
@@ -118,7 +118,7 @@ describe "USERS Table user -" do
 	end
 	describe "Authenticate method return Value" do
 
-			before { user.save }
+		before { user.save }
  		let(:found_user) { User.find_by(email: user.email) }
 			
 			describe "with valid password" do
