@@ -24,9 +24,16 @@ describe "USERS Table user -" do
   end
   describe "Username" do
 
-  	describe "that's blank should" do
-	  	before { user.username = " " }
-	  	describe "should be invalid" do
+  	describe "that's already taken, case insensitive" do
+    	before { user_with_same_username = user.dup
+  	  				 user_with_same_username.save }
+  	  describe "should be invalid" do
+  			it { should_not be_valid }
+  		end
+		end  	
+  	describe "with less than 4 characters" do
+	    before { user.username = "a" * (4-1) }
+	    describe "should be invalid" do
     		it { should_not be_valid }
     	end
   	end
@@ -36,13 +43,23 @@ describe "USERS Table user -" do
     		it { should_not be_valid }
     	end
   	end
-  	describe "that's already taken, case insensitive" do
-    	before { user_with_same_username = user.dup
-  	  				 user_with_same_username.save }
-  	  describe "should be invalid" do
-  			it { should_not be_valid }
-  		end
-		end  	
+  	describe "that's blank should" do
+	  	before { user.username = " " }
+	  	describe "should be invalid" do
+    		it { should_not be_valid }
+    	end
+  	end
+  	describe "that has only word characters (other than letters, numbers, underscore)" do
+	  	describe "should be valid" do
+    		it { should be_valid }
+    	end
+  	end
+  	describe "that has non-word characters" do
+	  	before { user.username = "a1_ !" }
+	  	describe "should be invalid" do
+    		it { should_not be_valid }
+    	end
+  	end
 
 	end		
 	describe "Email" do

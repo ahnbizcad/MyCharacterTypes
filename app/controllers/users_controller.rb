@@ -17,9 +17,11 @@ class UsersController < ApplicationController
   def create
   	@user = User.new(user_params)	 
 	  if @user.save
-      #flash[:success] = "Welcome to My Character Types!"
+      flash[:success] = "Welcome to My Character Types!"
 	  	redirect_to @user   #goes to show action - why?
 	  else
+      #! why does this result in the url being user/ url?
+      #! why does changing this to render 'edit' not work? cause
 	  	render 'new'
 	  end
 	  #disallow if logged, exception being admin
@@ -32,7 +34,9 @@ class UsersController < ApplicationController
 
   def update
   	@user = User.find(params[:id])
-  	if @user.update(params[:user].permit(:username,:email))
+  	#! password should confirm for updating.
+    #! changing password should require email confirmation
+    if @user.update(params[:user].permit(:username,:email,:password,:password_confirmation))
   		redirect_to @user
   	else
   		render 'edit'

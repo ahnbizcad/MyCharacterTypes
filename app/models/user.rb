@@ -2,10 +2,13 @@ class User < ActiveRecord::Base
 	require 'bcrypt'
 
 	# Validations for name attribute.
+	USERNAME_REGEX = /[\w]+/i 
 	validates :username, 	presence: true, 
 										uniqueness: { case_sensitive: false },
-										length: { within: 4..20 }
+										length: { within: 4..20 },
+										format: { with: USERNAME_REGEX }
 										#disallow symbols by using regex
+										#disallw space character
 
 	# Validations for email attribute.
 	before_save { email.downcase! }

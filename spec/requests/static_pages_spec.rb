@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Static pages -" do
 
-	# Create variables in Rspec.
+	# Create variables in Rspec.gem 
 	# Define as symbol.
 	# Use #{:variablename} to call.
   
