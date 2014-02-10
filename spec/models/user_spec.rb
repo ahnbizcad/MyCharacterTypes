@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe "USERS Table user -" do
-	#before { user = User.new(username: "Example User", 
-	#													email: "user@example.com",
+	#before { user = User.new(username: "First_Last3Name",
+	#													email: "FirstLastName@ExamplE.CoM",
 	#													password: "foobar",
 	#													password_confirmation: "foobar") }
 	let(:user) { FactoryGirl.create(:user) }		
@@ -15,7 +15,7 @@ describe "USERS Table user -" do
 	  it { should respond_to(:password_digest) }
 	  it { should respond_to(:password) }
 	  it { should respond_to(:password_confirmation) }
-
+	  it { should respond_to(:remember_token) }
 	  #methods
 	  it { should respond_to(:authenticate) }
 
@@ -146,6 +146,12 @@ describe "USERS Table user -" do
   		it { should_not eq user_for_invalid_password }
   		specify { expect(user_for_invalid_password).to be_false }
 		end
+
+	end
+	describe "Remember_token" do
+
+		before { user.save }
+		its(:remember_token) { should_not be_blank }
 
 	end
 

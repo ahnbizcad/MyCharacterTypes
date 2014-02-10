@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 										#disallw space character
 
 	# Validations for email attribute.
-	before_save { email.downcase! }
+	before_save { self.email = email.downcase! }
 	EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 	validates :email, presence: true, 
 										uniqueness: { case_sensitive: false },
@@ -22,5 +22,21 @@ class User < ActiveRecord::Base
 	validates :password, presence: true,
 											 length: { minimum: 6 }
 
+	# Tokens
+  before_create :create_remember_token
+
+  def User.new_remember_token
+  	SecureRandom.urlsafe_base64
+  end
+
+  def User.encrypt(token)
+  	Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  private
+
+		def create_remember_token
+			self.remember_token = User.encrypt(User.new_remember_token)
+		end
   #use rescue to redirect away from exception error page when double clicking form rapidly
 end

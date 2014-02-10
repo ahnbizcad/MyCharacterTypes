@@ -14,17 +14,22 @@ MyCharacterTypes::Application.routes.draw do
 
   # users
   #! figure out how to disable redundant url paths
-  resources :users
+  
   #! restrict edit and destroy to your own profile - use sessionsto do this?
   get '/signup',        to: 'users#new',           as: :signup
   #! change :id to be :name
-  get "/profile/:id",       to: 'users#show',          as: :profile
+  get "/profile/:id",   to: 'users#show',          as: :profile
   #get '/edit-profile',  to: 'users#edit',          as: :edit_profile
   #post ''
   #put ''
-  # Don't allow users to delete account
-
-
+  #! Don't allow users to delete account
+  #! allow deactivation
+  resources :users
+  
+  # Sessions
+  get     '/login',     to: 'sessions#new',        as: :login
+  delete  '/logout',    to: 'sessions#destroy',    as: :logout
+  resources :sessions, only: [:new, :create, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -80,4 +85,5 @@ MyCharacterTypes::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
 end

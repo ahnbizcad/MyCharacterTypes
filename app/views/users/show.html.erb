@@ -1,9 +1,10 @@
 <%= provide(:title, 'Profile') %>
 
-<h1>
+<h1>Profile</h1>
+<div>
 	<%= gravatar_for @user %>
 	<%= @user.username %>
-</h1>
+</div>
 <div>
 	<%= @user.username %>
 	<br>

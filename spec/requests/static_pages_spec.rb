@@ -7,12 +7,12 @@ describe "Static pages -" do
 	# Use #{:variablename} to call.
   
   subject { page }
-	let(:base_title) { "Ruby on Rails Tutorial Sample App" }
+	let(:base_title) { "My Character Types" }
 
   describe "Home page" do
   	before { visit home_path }
-    it { should have_selector('h1', text: 'Sample App') }
-    it { should have_title(full_title('Home')) }
+    it { should have_selector('h1', text: 'My Character Types') }
+    it { should have_title(base_title) }
   end
 
   describe "Help page" do

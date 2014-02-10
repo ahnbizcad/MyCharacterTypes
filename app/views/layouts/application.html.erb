@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Ruby on Rails Tutorial Sample App | <%= yield(:title) %></title>
+  <title><%= full_title(yield(:title)) %></title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -9,7 +9,7 @@
 <body>
 
 <%= render '/layouts/header' %>
-
+<%= render '/layouts/navbar' %>
 <aside class="sidebar">
 </aside>
 
@@ -19,9 +19,7 @@
 	<% end %>
 	<%= yield %>
 	<%= render '/layouts/footer' %>
-	<%#= display div tag in debug if development %>
 	<%= debug(params) if Rails.env.development? %>
-	<%#= display div end tag %>
 </div>
 
 <aside class="sidebar">
