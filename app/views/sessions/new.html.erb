@@ -1,0 +1,20 @@
+<% provide(:title, "Log In") %>
+<h1>Log In</h1>
+
+<%= form_for(:session, url: sessions_path) do |s| %>
+	<p>
+		<%#! Accept username, case insensitive, also %>
+		<%= s.label :email %>:
+		<%= s.text_field :email %>
+	</p>
+	<p>
+		<%= s.label :password %>:
+		<%= s.password_field :password %>
+	</p>
+	<p>
+		<%# Find out how to edit text of the submit button to say something else like "Sign Up"%>
+		<%= s.submit "Log In" %>
+	</p>
+	<%#= link_to 'Forgot Login', # %>
+	<%= link_to 'Create Account', signup_path %>
+<%end%>
