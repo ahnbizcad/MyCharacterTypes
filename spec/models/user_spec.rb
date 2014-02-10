@@ -50,6 +50,7 @@ describe "USERS Table user -" do
     	end
   	end
   	describe "that has only word characters (other than letters, numbers, underscore)" do
+	  	before { user.name = "aA3_" }
 	  	describe "should be valid" do
     		it { should be_valid }
     	end

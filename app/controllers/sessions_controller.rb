@@ -26,13 +26,12 @@ class SessionsController < ApplicationController
 		@session = Session.find(params[:id])
 	end
 
-	private 
-
-	def session_params
-		#! also allow username
-		#! detect if username or email via presence of @ symbol, or non word characters
-		@session.require(:session).permit(:email,:password)
-	end
-
+	#private 
+	#
+	#def session_params
+	#	#! also allow username
+	#	#! detect if username or email via presence of @ symbol, or non word characters
+	#	@session.require(:session).permit(:email,:password)
+	#end
 
 end

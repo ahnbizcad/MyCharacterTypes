@@ -11,14 +11,15 @@ class User < ActiveRecord::Base
 										#disallw space character
 
 	# Validations for email attribute.
-	before_save { self.email = email.downcase! }
+	before_save { email.downcase! }
 	EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 	validates :email, presence: true, 
 										uniqueness: { case_sensitive: false },
 										format: { with: EMAIL_REGEX }
 										
 	# Validations for password attribute, and securing password.
-	has_secure_password #takes care of password confirmation matching
+	# Takes care of password confirmation matching.
+	has_secure_password 
 	validates :password, presence: true,
 											 length: { minimum: 6 }
 
