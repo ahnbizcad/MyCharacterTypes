@@ -106,10 +106,7 @@ describe "USERS Table user -" do
 				user_with_same_email.email = user.email.upcase
   			user_with_same_email.save
   		end
-			describe "should be invalid" do	 					
-				#! Somehow, password is nil
 				it { should_not be_valid }
-			end		
 		end
 
 	end		
