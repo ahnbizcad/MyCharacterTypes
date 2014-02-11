@@ -4,7 +4,7 @@ module SessionsHelper
 		# Create new token.
 		remember_token = User.new_remember_token
 		# Save new token into permanent cookie.
-		# Cookie is created now.
+		# Cookie is created at this point.
 		cookies.permanent[:remember_token] = remember_token
 		# Update the remember_token attribute in the User database after encrypting it.
 		# Update_attribute bypasses validations.
@@ -13,10 +13,6 @@ module SessionsHelper
 		# Set the session's user to the user (who will log in successfully).
 		# Unnec to set this because the create action immediately redirects using the user
 		self.current_user = the_user
-	end
-
-	def logged_in?
-		!current_user.nil?
 	end
 	
 	def current_user=(the_user)
@@ -28,8 +24,19 @@ module SessionsHelper
 		# Find user whose remember_token attribute value matches the encrypted result of the token stored in the cookie.
 		# Using ||= handles login as well as navigating pages during the session.
 		# Doesn't hit database if value is already set - checks value before quering. Good!
-		# Uses short-circuit evaluation.
+		# ||= here uses short-circuit evaluation.
 		@current_user ||= User.find_by(remember_token: remember_token)
+	end
+
+	def logged_in?
+		!current_user.nil?
+	end
+
+	def log_out
+		current_user.update_attribute(:remember_token, 
+																	User.encrypt(User.new_remember_token))
+		cookies.delete(:remember_token)
+		self.current_user = nil
 	end
 
 end

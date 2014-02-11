@@ -7,18 +7,20 @@ class UsersController < ApplicationController
   def show
   	#change to find by username index
   	@user = User.find(params[:id])
+    #! Prevent page from being as if logged in after logging out and pressing "back". Implement at sitewide session level?
   end
 
   def new
   	@user = User.new
-  	#disallow if logged, exception being admin
+  	#! Don't allow users to go to login page via "back" when logged in.
   end
 
   def create
   	@user = User.new(user_params)	 
 	  if @user.save
+      log_in @user
       flash[:success] = "Welcome to My Character Types!"
-	  	redirect_to @user   #goes to show action - why?
+	  	redirect_to @user
 	  else
       #! why does this result in the url being user/ url?
       #! why does changing this to render 'edit' not work? cause

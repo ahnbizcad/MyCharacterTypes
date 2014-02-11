@@ -50,7 +50,7 @@ describe "USERS Table user -" do
     	end
   	end
   	describe "that has only word characters (other than letters, numbers, underscore)" do
-	  	before { user.name = "aA3_" }
+	  	before { user.username = "aA3_" }
 	  	describe "should be valid" do
     		it { should be_valid }
     	end
@@ -99,12 +99,15 @@ describe "USERS Table user -" do
    			user.save
    			expect(user.reload.email).to eq mixed_case_email.downcase
  		  end
-		end
-		describe "that's already taken" do
-			before { user_with_same_email = user.dup 
-							 user_with_same_email.email = user.email.upcase
-  						 user_with_same_email.save }
+		end		
+		describe "that's already taken, case insensitive" do
+			before do
+				user_with_same_email = user.dup 
+				user_with_same_email.email = user.email.upcase
+  			user_with_same_email.save
+  		end
 			describe "should be invalid" do	 					
+				#! Somehow, password is nil
 				it { should_not be_valid }
 			end		
 		end

@@ -11,5 +11,8 @@
 	<%# allow user to choose to either show or hide to other users%>
 	<%= @user.email %>
 	<br>
-	<%= link_to 'Edit profile', edit_user_path(@user) %>
+	<%#! Show edit button if logged in user matches the user of the profile %>
+	<%# if @user.remember_token == current_user.remember_token %>
+		<%#= link_to 'Edit profile', edit_user_path(@user) %>
+	<%# end %>
 </div>

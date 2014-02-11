@@ -1,7 +1,12 @@
 class SessionsController < ApplicationController
 
 	def new
-		
+		#! Don't allow users to go to signup page via "back" when logged in.
+
+		#@current_user
+		#if logged_in?
+		#	redirect_to user
+
 	end
 
 	def create
@@ -10,7 +15,8 @@ class SessionsController < ApplicationController
 		correct_password = user.authenticate(params[:session][:password])
 		if user && correct_password
 			log_in user
-			redirect_to user
+			#! Redirect to page last viewed, not profile page.
+			redirect_to user 
 		else
 			flash.now[:error] = 'Invalid email/password combination.'
 			render 'new'
@@ -23,7 +29,13 @@ class SessionsController < ApplicationController
 	end
 	
 	def destroy
-		@session = Session.find(params[:id])
+		log_out
+		#! Redirect to last viewed page
+		redirect_to root_url
+
+		#@session = Session.find(params[:id])
+		#@session.destroy		
+		#redirect_to home_path
 	end
 
 	#private 
