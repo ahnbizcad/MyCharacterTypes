@@ -27,14 +27,13 @@ describe "USERS Pages page -" do
 
   describe "Signup page" do
 		before { visit signup_path }
-		let(:submit) { "Create User" }
 
-		it { should have_selector('h1', text: 'Sign Up') }
-    it { should have_title(full_title('Sign Up')) }
+		it { should have_selector('h1', text: 'Create Account') }
+    it { should have_title(full_title('Create Account')) }
 
 		describe "with invalid information" do
 			it "should not create a user" do
-				expect { click_button submit }.not_to change(User, :count)
+				expect { click_button "Create Account" }.not_to change(User, :count)
 			end
 		end
 
@@ -43,11 +42,11 @@ describe "USERS Pages page -" do
 				fill_in "Username",								with: "Example User"
 				fill_in "Email",									with: "UsEr@GmAiL.cOm"
 				fill_in "Password",								with: "foobar"
-				fill_in "Password confirmation",	with: "foobar"
+				fill_in "Confirm Password",	with: "foobar"
 			end
 
 			it "should create a user" do
-				expect { click_button submit }.to change(User, :count).by(1)
+				expect { click_button "Create Account" }.to change(User, :count).by(1)
 			end
 
 		end
