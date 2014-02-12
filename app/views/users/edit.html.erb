@@ -1,7 +1,10 @@
 <% provide(:title, 'Edit Profile') %>
-<h1>Edit Profile </h1>
+<h1>Edit Profile</h1>
 
 <%= render 'shared/error_messages' %>
+
+<%= gravatar_for @user %>
+<a href="http://gravatar.com/emails">change</a>
 
 <%#= form_for @post, as: :post, url: posts_path, html: { class: "new_post", id: "new_post" } do |f| %>
 <div class="form"> 
@@ -23,7 +26,12 @@
 		<%= u.password_field :password_confirmation %>
 	</p>
 	<p>		
-		<%= u.submit 'Confirm' %>
+		<%# behavior is it goes back once. make it go back to previous link that is not the same page? %>
+		<%= link_to "Back", :back %>
+		<%= u.submit 'Save Changes', class: "btn" %>
 	</p>
 <%end%>
+
+
+
 </div>

@@ -18,6 +18,7 @@ module SessionsHelper
 	def current_user=(the_user)
 		@current_user = the_user
 	end
+	
 	def current_user
 		# Local remember_token variable encrypts token value stored in cookie.
 		remember_token = User.encrypt(cookies[:remember_token])

@@ -18,11 +18,35 @@ describe "USERS Pages page -" do
     it { should have_title(full_title('Profile')) }
   end
 
-  describe "Edit page" do
-  	before { user.save
-  					 visit edit_user_path(user) }
+  describe "Edit page" do  	
+  	before do 
+  		log_in user
+			visit edit_user_path(user) 
+		end
     it { should have_selector('h1', text: 'Edit Profile') }
-    it { should have_title(full_title('Edit Profile')) }
+    it { should have_title(full_title('Edit Profile')) }   
+    
+    describe "with invalid information" do
+			before { click_button "Save Changes" }
+			it { should have_content('error') }
+		end
+		
+		describe "with valid information" do
+			let(:new_username)  { "NewName" }
+			let(:new_email) { "new@example.com" }
+			before do
+				fill_in "Username", 				with: new_username
+				fill_in "Email",						with: new_email
+				fill_in "Password",					with: user.password
+				fill_in "Confirm Password",	with: user.password_confirmation
+				click_button "Save Changes"			   
+			end
+			it { should have_content('Profile') }
+			it { should have_link('Log Out', href: logout_path) }
+			it { should_not have_link('Log In', href: login_path) }
+			specify { expect(user.reload.name).to eq new_username }
+			specify { expect(user.reload.email).to eq new_email }
+		end
   end	  
 
   describe "Signup page" do

@@ -36,10 +36,11 @@ class UsersController < ApplicationController
 
   def update
   	@user = User.find(params[:id])
-  	#! password should confirm for updating.
-    #! changing password should require email confirmation
+  	#! don't require password for updating normal fields.
+    #! changing username, email, or password should require current password and confirmation.
     if @user.update(params[:user].permit(:username,:email,:password,:password_confirmation))
-  		redirect_to @user
+  		flash[:success] = "Profile updated."
+      redirect_to @user
   	else
   		render 'edit'
   	end
