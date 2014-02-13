@@ -1,11 +1,13 @@
-<% provide(:title, 'Users') %>
-<h1>Users</h1>
+<% provide(:title, 'Members') %>
+<h1>Members</h1>
 
-<table>
-	<% @users.each do |u| %>
+<% @users.each do |u| %>
+<li>
+	<table>
 		<tr>
+			<td><%= gravatar_for u, size: 50 %></td>
 			<td><%= u.id %></td>
-			<td><%= u.username %></td>
+			<td><%= link_to u.username, user_path(u) %></td>
 			<td><%= u.email %></td>
 			<td><%= u.password %></td>
 			<%# change to admin only %>
@@ -15,5 +17,6 @@
 																								data: { confirm: 'Are you sure?' } %></td>
 			<%# change to admin only %>
 		<tr>
-	<% end %>
-</table>
+	</table>
+<li>
+<% end %>

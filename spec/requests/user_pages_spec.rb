@@ -6,9 +6,20 @@ describe "USERS Pages page -" do
 	subject { page }
   
   describe "Index page" do
-  	before { visit users_path }
-    it { should have_selector('h1', text: 'Users') }
-    it { should have_title(full_title('Users')) }
+  	before do 
+  		FactoryGirl.create(:user).save
+  		log_in FactoryGirl.create(:user)
+  		FactoryGirl.create(:user, name: "Bob", email: "bob@example.com")
+  		FactoryGirl.create(:user, name: "Daq", email: "daq@example.com")
+  		visit users_path
+  	end
+    it { should have_selector('h1', text: 'Members') }
+    it { should have_title(full_title('Members')) }
+    it "should list each user" do
+    	User.all.each do |u|
+    		expect(page).to have selector('li', text: u.name)
+    	end
+    end
   end
 
   describe "Show page" do

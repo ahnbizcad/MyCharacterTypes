@@ -70,21 +70,25 @@ describe "Authentication -" do
 				end	
 
 				#
-				describe "when visiting a protected page" do
-        before do
-          visit edit_user_path(user)
-          fill_in "Email",    with: user.email
-          fill_in "Password", with: user.password
-					user.save
-					click_button "Log In"          
-        end
-        describe "after signing in" do
-          it "should render the desired protected page" do
-            expect(page).to have_title('Edit Profile')
-          end
-        end
+				describe "visiting a protected page" do
+       		before do
+        	  visit edit_user_path(user)
+        		fill_in "Email",    with: user.email
+          	fill_in "Password", with: user.password
+						user.save
+						click_button "Log In"          
+       		end
+        		describe "after signing in" do
+          	it "should render the desired protected page" do
+            	expect(page).to have_title('Edit Profile')
+          	end
+        	end
       	end
 
+      	describe "visiting users index page" do
+      		before { visit users_path }
+      		it { should have_title('Log In') }
+      	end
 			end
 
 			describe "as logged-in user" do

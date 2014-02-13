@@ -21,10 +21,6 @@ module SessionsHelper
 		!current_user.nil?
 	end	
 
-	def current_user=(the_user)
-		@current_user = the_user
-	end
-
 	def current_user
 		# Local remember_token variable encrypts token value stored in cookie.
 		remember_token = User.encrypt(cookies[:remember_token])
@@ -33,6 +29,10 @@ module SessionsHelper
 		# Doesn't hit database if value is already set - checks value before quering. Good!
 		# ||= here uses short-circuit evaluation.
 		@current_user ||= User.find_by(remember_token: remember_token)
+	end
+
+	def current_user=(the_user)
+		@current_user = the_user
 	end
 
 	def current_user? (the_user)

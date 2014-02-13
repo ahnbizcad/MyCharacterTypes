@@ -1,8 +1,10 @@
 class SessionsController < ApplicationController
+# not storing previous location properly. seems to store the get sessions/new location
+before_action :store_location, only: [:new]
 
 	def new
 		redirect_to user_path(current_user) if logged_in?
-		#@session = Session.new
+		#@session ||= Session.new
 		#@user ||= User.find_by(email: params[:session][:email])
 		#! Don't allow users to go to signup page via "back" when logged in.
 		#! Nevermind It's fine. Session will be replaced, not two-at-once.
@@ -14,7 +16,7 @@ class SessionsController < ApplicationController
 		correct_password = user.authenticate(params[:session][:password]) unless user.nil?
 		if user && correct_password
 			log_in user
-			redirect_back_or user 
+			redirect_back_or root_url
 		else
 			flash.now[:error] = 'Invalid email/password combination.'			
 			render '/sessions/new'
