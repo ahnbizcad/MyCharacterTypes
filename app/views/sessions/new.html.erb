@@ -1,7 +1,7 @@
 <% provide(:title, "Log In") %>
 <h1>Log In</h1>
 
-<%= form_for(:session, url: sessions_path) do |s| %>
+<%= form_for :session, url: sessions_path do |s| %>
 	<p>
 		<%#! Accept username, case insensitive, also %>
 		<%= s.label :email %>:

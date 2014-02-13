@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe "AuthenticationPages" do
+describe "Authentication -" do
   subject { page }
 
-  describe "Login page" do
+  describe "Login page -" do
   	before { visit login_path }
   	
   	describe "should have title and header" do  		
@@ -16,8 +16,8 @@ describe "AuthenticationPages" do
   		describe "should have selector div.alert.alert-error" do
   			it { shuould have_title(full_title('Log In')) }
   			it { should have_selector('div.alert.alert-error') }
-  			it { should have_link('Log In', 			href: login_path(user)) }
-  			it { should_not have_link('Log Out', 	href: logout_path(user)) }  			
+  			it { should have_link('Log In', 			href: login_path) }
+  			it { should_not have_link('Log Out', 	href: logout_path) }  			
   		end
   		describe "after visiting another page" do
   			before { click_link "Home" }
@@ -27,9 +27,11 @@ describe "AuthenticationPages" do
 
   	describe "with valid information" do
   		let(:user) { FactoryGirl.create(:user) }
-  		before { fill_in "Email",			with: user.email.upcase
+  		before { user.save
+  						 fill_in "Email",			with: user.email.upcase
   						 fill_in "Password",	with: user.password
   						 click_button "Log In" }	
+
   		describe "after saving the user" do	
   			it { should have_link(user.username, 	href: user_path(user)) }
   			it { should have_link('Log Out', 			href: logout_path(user)) }
@@ -42,7 +44,75 @@ describe "AuthenticationPages" do
 			end
 
   	end
-
 	end
 
+	describe "Authorize -" do
+		let(:user) { FactoryGirl.create(:user) }
+
+		describe "in the Users Controller" do
+
+			describe "as a non logged in user" do
+
+				describe "visiting the edit user page" do
+					before { visit edit_user_path(user) }
+					it { should have_title('Log In') }
+				end
+
+				describe "submitting to the update action" do
+					before { patch user_path(user) }
+					specify { expect(response).to redirect_to(login_path) }
+				end
+
+				describe "submitting to the destroy action" do
+					before { user.save
+									 delete user_path(user) }
+					specify { expect(response).to redirect_to(login_path) }
+				end	
+
+				#
+				describe "when visiting a protected page" do
+        before do
+          visit edit_user_path(user)
+          fill_in "Email",    with: user.email
+          fill_in "Password", with: user.password
+					user.save
+					click_button "Log In"          
+        end
+        describe "after signing in" do
+          it "should render the desired protected page" do
+            expect(page).to have_title('Edit Profile')
+          end
+        end
+      	end
+
+			end
+
+			describe "as logged-in user" do
+				let(:wrong_user) { FactoryGirl.create(:user, email: "wrong@example.com") }
+				before { log_in wrong_user, use_capybara: false }
+
+				describe "submitting a GET request to Users#edit action" do
+					before  { get edit_user_path(user) }
+					specify { expect(response.body).not_to match(full_title('Edit Profile')) }
+					specify { expect(response).to redirect_to(user_path(user)) }
+				end
+
+				describe "submitting a PATCH request to Users#update action" do
+					before { PATCH user_path(user) }
+					specify { expect(response).to redirect_to(user_path(user)) }
+				end
+
+			end
+
+			#describe "as your own non-admin user" do
+			#	describe "visiting edit profile page of that user" do
+			#		visit { edit_user_path(user) }
+			#	end					
+			#end
+
+
+		end
+
+
+	end
 end

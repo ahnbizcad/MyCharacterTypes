@@ -1,24 +1,30 @@
 module SessionsHelper
 
+	def log_out
+		current_user.update_attribute(:remember_token, 
+																	User.encrypt(User.new_remember_token))
+		cookies.delete(:remember_token)
+		self.current_user = nil
+	end	
+
 	def log_in(the_user)
 		# Create new token.
 		remember_token = User.new_remember_token
-		# Save new token into permanent cookie.
-		# Cookie is created at this point.
 		cookies.permanent[:remember_token] = remember_token
-		# Update the remember_token attribute in the User database after encrypting it.
 		# Update_attribute bypasses validations.
-		# Bypassing validations is necessary here because a password was required, and we have no password here(?).
+		# Bypassing validations is necessary here a required password is absent in the inputs
 		the_user.update_attribute(:remember_token, User.encrypt(remember_token))
-		# Set the session's user to the user (who will log in successfully).
-		# Unnec to set this because the create action immediately redirects using the user
 		self.current_user = the_user
 	end
-	
+
+	def logged_in?
+		!current_user.nil?
+	end	
+
 	def current_user=(the_user)
 		@current_user = the_user
 	end
-	
+
 	def current_user
 		# Local remember_token variable encrypts token value stored in cookie.
 		remember_token = User.encrypt(cookies[:remember_token])
@@ -29,15 +35,17 @@ module SessionsHelper
 		@current_user ||= User.find_by(remember_token: remember_token)
 	end
 
-	def logged_in?
-		!current_user.nil?
+	def current_user? (the_user)
+		the_user == current_user
 	end
 
-	def log_out
-		current_user.update_attribute(:remember_token, 
-																	User.encrypt(User.new_remember_token))
-		cookies.delete(:remember_token)
-		self.current_user = nil
+	def store_location
+		session[:return_to] = request.url if request.get?
+	end
+
+	def redirect_back_or(default_page)
+		redirect_to(session[:return_to] || default_page)
+		session.delete(:return_to)
 	end
 
 end

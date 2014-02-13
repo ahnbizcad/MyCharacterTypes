@@ -1,25 +1,23 @@
 class SessionsController < ApplicationController
 
 	def new
+		redirect_to user_path(current_user) if logged_in?
+		#@session = Session.new
+		#@user ||= User.find_by(email: params[:session][:email])
 		#! Don't allow users to go to signup page via "back" when logged in.
-
-		#@current_user
-		#if logged_in?
-		#	redirect_to user
-
+		#! Nevermind It's fine. Session will be replaced, not two-at-once.
 	end
 
 	def create
 		#! Do this using email index
 		user = User.find_by(email: params[:session][:email].downcase)
-		correct_password = user.authenticate(params[:session][:password])
+		correct_password = user.authenticate(params[:session][:password]) unless user.nil?
 		if user && correct_password
 			log_in user
-			#! Redirect to page last viewed, not profile page.
-			redirect_to user 
+			redirect_back_or user 
 		else
-			flash.now[:error] = 'Invalid email/password combination.'
-			render 'new'
+			flash.now[:error] = 'Invalid email/password combination.'			
+			render '/sessions/new'
 		end
 		#@session = Session.new(session_params)
 		#if  
@@ -31,11 +29,8 @@ class SessionsController < ApplicationController
 	def destroy
 		log_out
 		#! Redirect to last viewed page
-		redirect_to root_url
-
-		#@session = Session.find(params[:id])
-		#@session.destroy		
-		#redirect_to home_path
+		store_location
+		redirect_back_or root_url
 	end
 
 	#private 

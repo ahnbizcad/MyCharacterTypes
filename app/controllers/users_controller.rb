@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :redirect_unlogged_user, only: [:edit, :update, :destroy]
+  before_action :redirect_wrong_user,    only: [:edit, :update]
 
   def index
   	@users = User.all
@@ -56,9 +58,21 @@ class UsersController < ApplicationController
   end
 
   private
-  # whitelist form fields entered by users
-  def user_params
-  	params.require(:user).permit(:username, :email, :password, :password_confirmation)
-  end
+    # whitelist form fields entered by users
+    def user_params
+  	  params.require(:user).permit(:username, :email, :password, :password_confirmation)
+    end
+
+    def redirect_unlogged_user
+      if !logged_in?
+        store_location
+        redirect_to login_url, notice: "Please log in." unless logged_in?
+      end
+    end
+
+    def redirect_wrong_user
+      @user = User.find(params[:id])
+      redirect_to(root_url) unless current_user?(@user)
+    end
 
 end

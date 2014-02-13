@@ -19,8 +19,7 @@ describe "USERS Pages page -" do
   end
 
   describe "Edit page" do  	
-  	before do 
-  		log_in user
+  	before do log_in user
 			visit edit_user_path(user) 
 		end
     it { should have_selector('h1', text: 'Edit Profile') }
@@ -44,7 +43,7 @@ describe "USERS Pages page -" do
 			it { should have_content('Profile') }
 			it { should have_link('Log Out', href: logout_path) }
 			it { should_not have_link('Log In', href: login_path) }
-			specify { expect(user.reload.name).to eq new_username }
+			specify { expect(user.reload.username).to eq new_username }
 			specify { expect(user.reload.email).to eq new_email }
 		end
   end	  
