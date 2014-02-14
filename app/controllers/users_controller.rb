@@ -3,8 +3,7 @@ class UsersController < ApplicationController
   before_action :redirect_wrong_user,    only: [:edit, :update, :destroy]
 
   def index
-    #@users = User.all
-  	@users = User.all
+  	@users = User.paginate(:page => params[:page])
   end
 
   def show
@@ -74,6 +73,9 @@ class UsersController < ApplicationController
     def redirect_wrong_user
       @user = User.find(params[:id])
       redirect_to(root_url) unless current_user?(@user)
+    end
+
+    def redirect_non_admin_user
     end
 
 end

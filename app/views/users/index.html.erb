@@ -1,23 +1,10 @@
 <% provide(:title, 'Members') %>
 <h1>Members</h1>
 
+<%= will_paginate %>
+
 <ul class="list">
-	<% @users.each do |u| %>
-	<li>
-		<ul class="list-item">
-			<li><%= gravatar_for u, size: 50 %></li>
-			<li><%= u.id %></li>
-			<li><%= link_to u.username, user_path(u) %></li>
-			<li><%= u.email %></li>
-			<li><%= u.password %></li>
-					<%# change to admin only %>
-			<li><%= link_to 'show', u %></li>
-			<li><%= link_to 'edit', edit_user_path(u) %></li>
-			<li><%= link_to 'destroy', user_path(u), 
-																	method: :delete, 
-																	data: { confirm: 'Are you sure?' } %></li>
-			<%# change to admin only %>
-		</ul>
-	</li>
-	<% end %>
+	<%= render @users %>
 </ul>
+
+<%= will_paginate %>
