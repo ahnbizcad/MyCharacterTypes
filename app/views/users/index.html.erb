@@ -1,22 +1,23 @@
 <% provide(:title, 'Members') %>
 <h1>Members</h1>
 
-<% @users.each do |u| %>
-<li>
-	<table>
-		<tr>
-			<td><%= gravatar_for u, size: 50 %></td>
-			<td><%= u.id %></td>
-			<td><%= link_to u.username, user_path(u) %></td>
-			<td><%= u.email %></td>
-			<td><%= u.password %></td>
+<ul class="list">
+	<% @users.each do |u| %>
+	<li>
+		<ul class="list-item">
+			<li><%= gravatar_for u, size: 50 %></li>
+			<li><%= u.id %></li>
+			<li><%= link_to u.username, user_path(u) %></li>
+			<li><%= u.email %></li>
+			<li><%= u.password %></li>
+					<%# change to admin only %>
+			<li><%= link_to 'show', u %></li>
+			<li><%= link_to 'edit', edit_user_path(u) %></li>
+			<li><%= link_to 'destroy', user_path(u), 
+																	method: :delete, 
+																	data: { confirm: 'Are you sure?' } %></li>
 			<%# change to admin only %>
-			<td><%= link_to 'show', u %></td>
-			<td><%= link_to 'edit', edit_user_path(u) %></td>
-			<td><%= link_to 'destroy', user_path(u), 	method: :delete, 
-																								data: { confirm: 'Are you sure?' } %></td>
-			<%# change to admin only %>
-		<tr>
-	</table>
-<li>
-<% end %>
+		</ul>
+	</li>
+	<% end %>
+</ul>

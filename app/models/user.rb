@@ -2,10 +2,11 @@ class User < ActiveRecord::Base
 	require 'bcrypt'
 
 	# Validations for name attribute.
-	USERNAME_REGEX = /[\w]+/i 
+	#! Should not allow space characters...
+	USERNAME_REGEX = /[\w]+/i
 	validates :username, 	presence: true, 
 										uniqueness: { case_sensitive: false },
-										length: { within: 4..20 },
+										length: { within: 4..25 },
 										format: { with: USERNAME_REGEX }
 										#disallow symbols by using regex
 										#disallw space character

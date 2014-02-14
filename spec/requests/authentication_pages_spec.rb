@@ -91,7 +91,7 @@ describe "Authentication -" do
       	end
 			end
 
-			describe "as logged-in user" do
+			describe "as wrong user" do
 				let(:wrong_user) { FactoryGirl.create(:user, email: "wrong@example.com") }
 				before { log_in wrong_user, use_capybara: false }
 

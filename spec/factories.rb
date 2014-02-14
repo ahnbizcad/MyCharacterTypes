@@ -8,4 +8,13 @@ FactoryGirl.define do
 		password_confirmation "foobar"
 	end	
 	
+	#! causes approx 30 tests to fail.
+	
+  #factory :user do
+  #  sequence(:name)  { |n| "Person_#{n}" }
+  #  sequence(:email) { |n| "person_#{n}@g.c"}
+  #  password "foobar"
+  #  password_confirmation "foobar"
+  #end
+
 end

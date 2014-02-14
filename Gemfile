@@ -35,10 +35,12 @@ gem 'coffee-rails', '4.0.1'
 gem 'jquery-rails', '3.0.4'
 gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '1.0.2'
-
 #database
 gem 'pg', '0.17.1'
-
+#pagination
+gem 'will_paginate', '3.0.4'
+#populate sample data
+gem 'faker', '1.2.0'
 
 
 group :development, :test do

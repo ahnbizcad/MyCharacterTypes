@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
-  before_action :redirect_unlogged_user, only: [:edit, :update, :index]
-  before_action :redirect_wrong_user,    only: [:edit, :update]
+  before_action :redirect_unlogged_user, only: [:edit, :update, :destroy, :index]
+  before_action :redirect_wrong_user,    only: [:edit, :update, :destroy]
 
   def index
+    #@users = User.all
   	@users = User.all
   end
 

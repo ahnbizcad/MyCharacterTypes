@@ -1,15 +1,19 @@
-<li><%= link_to 'Home', home_path %></li>
-<li><%= link_to 'Characters', '#' %></li>
-<li><%= link_to 'Universes', '#' %></li>
-<li><%= link_to 'Celebrities', '#' %></li>
-<li><%= link_to 'Members', users_path %></li>
-<div class="pull-right">
-<% if logged_in? %>
-	<li><%= link_to current_user.username, current_user %></li>
-	<li><%= link_to 'Settings', '#' %></li>
-	<li><%= link_to 'Log Out', logout_path, method: 'delete' %></li>
-<% else %>
-	<li><%= link_to 'Log In', login_path %></li>
-	<li><%= link_to 'Create Account', signup_path %></li>
-<% end %>
-</div>
+<nav>
+<ul>
+	<li><%= link_to 'Home', home_path %></li>
+	<li><%= link_to 'Characters', '#' %></li>
+	<li><%= link_to 'Universes', '#' %></li>
+	<li><%= link_to 'Celebrities', '#' %></li>
+	<li><%= link_to 'Members', users_path %></li>
+</ul>
+<ul class="pull-right">	
+	<% if logged_in? %>
+		<li><%= link_to current_user.username, current_user %></li>
+		<li><%= link_to 'Settings', '#' %></li>
+		<li><%= link_to 'Log Out', logout_path, method: 'delete' %></li>
+	<% else %>
+		<li><%= link_to 'Log In', login_path %></li>
+	<li></li>i><%= link_to 'Create Account', signup_path %></li>
+	<% end %>
+</ul>
+</nav>
