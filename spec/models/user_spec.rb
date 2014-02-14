@@ -16,12 +16,14 @@ describe "USERS Table user -" do
 	  it { should respond_to(:password) }
 	  it { should respond_to(:password_confirmation) }
 	  it { should respond_to(:remember_token) }
+	  it { should respond_to(:admin) }
+	  #it { should respond_to(:points)}
 	  #methods
 	  it { should respond_to(:authenticate) }
-
 	  it { should be_valid }
 
   end
+
   describe "Username" do
 
   	describe "that's already taken, case insensitive" do
@@ -62,7 +64,8 @@ describe "USERS Table user -" do
     	end
   	end
 
-	end		
+	end
+
 	describe "Email" do
   	#VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 		describe "that's blank should be invalid" do
@@ -110,6 +113,7 @@ describe "USERS Table user -" do
 		end
 
 	end		
+
 	describe "Password" do 
 
 		describe "that's blank should be invalid" do
@@ -134,6 +138,7 @@ describe "USERS Table user -" do
 		end
 
 	end
+
 	describe "Authenticate method return Value" do
 
 		before { user.save }
@@ -149,10 +154,19 @@ describe "USERS Table user -" do
 		end
 
 	end
-	describe "Remember_token" do
 
+	describe "Remember_token" do
 		before { user.save }
 		its(:remember_token) { should_not be_blank }
+
+	end
+
+	describe "with admin attribute set to true" do
+		before do
+			user.save!
+			user.toggle!(:admin)
+		end
+		it { should be_admin }
 
 	end
 

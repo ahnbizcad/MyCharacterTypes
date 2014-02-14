@@ -9,9 +9,12 @@
 					<%# change to admin only %>
 			<li><%= link_to 'show', user %></li>
 			<li><%= link_to 'edit', edit_user_path(user) %></li>
-			<li><%= link_to 'destroy', user_path(user), 
-																	method: :delete, 
-																	data: { confirm: 'Are you sure?' } %></li>
-			<%# change to admin only %>
+			<li>
+			<% if current_user.admin? && !current_user?(user) %>
+			<%= link_to 'destroy', user_path(user),
+																 method: :delete, 
+																 data: { confirm: 'Are you sure?' } %>
+			<% end %>
+			</li>
 		</ul>
 	</li>

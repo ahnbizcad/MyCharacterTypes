@@ -82,7 +82,7 @@ describe "Authentication -" do
           	it "should render the desired protected page" do
             	expect(page).to have_title('Edit Profile')
           	end
-        	end
+        	end	
       	end
 
       	describe "visiting users index page" do
